@@ -83,7 +83,9 @@ public class EmployeeJPATest {
     public void should_return_company_name_when_input_employee_name() throws Exception {
         //5.查找xiaohong的所在的公司的公司名称
         String expectedCompanyName = "alibaba";
-        String actualCompanyName = null;
+
+        String actualCompanyName = employeeRepository.findCompanyNameOf("xiaohong");
+
         assertThat(actualCompanyName).isEqualTo(expectedCompanyName);
     }
 
