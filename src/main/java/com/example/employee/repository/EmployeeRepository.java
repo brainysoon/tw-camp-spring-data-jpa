@@ -39,4 +39,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Integer updateEmployeeNameById(@Param("id") Integer id, @Param("name") String name);
 
     //7.删除姓名是*的employee
+    @Modifying
+    @Query(value = "delete from Employee where name=:name", nativeQuery = true)
+    Integer deleteByName(@Param("name") String name);
 }
