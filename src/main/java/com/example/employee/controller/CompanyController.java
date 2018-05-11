@@ -9,6 +9,9 @@ import com.example.employee.service.CompanyService;
 import com.example.employee.service.EmployeeService;
 import com.example.employee.util.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,5 +50,15 @@ public class CompanyController {
         ResponseInfoEnum responseInfoEnum = employees.size() > 0 ?
                 ResponseInfoEnum.REQUEST_SUCCESSFULLY : ResponseInfoEnum.RESOURCE_NOT_FOUND;
         return ResponseWrapper.wrapResult(responseInfoEnum, employees);
+    }
+
+    @GetMapping(UriConstants.COMPANIES_PAGE_PAGENUM_PAGESIZE_PAGESIZENUM)
+    public Response<Page<Company>> listByPage(@PathVariable Integer pageNum, @PathVariable Integer pagesizeNum) {
+        Pageable pageable = PageRequest.of(pageNum, pagesizeNum);
+
+        Page<Company> companyPage = companyService.listByPage(pageable);
+        ResponseInfoEnum responseInfoEnum = companyPage.getSize() > 0 ?
+                ResponseInfoEnum.REQUEST_SUCCESSFULLY : ResponseInfoEnum.RESOURCE_NOT_FOUND;
+        return ResponseWrapper.wrapResult(responseInfoEnum, companyPage);
     }
 }
