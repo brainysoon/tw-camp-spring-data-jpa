@@ -3,8 +3,10 @@ package com.example.employee.controller;
 import com.example.employee.constant.UriConstants;
 import com.example.employee.domain.Response;
 import com.example.employee.entity.Company;
+import com.example.employee.entity.Employee;
 import com.example.employee.enums.ResponseInfoEnum;
 import com.example.employee.service.CompanyService;
+import com.example.employee.service.EmployeeService;
 import com.example.employee.util.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,9 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
+    @Autowired
+    private EmployeeService employeeService;
+
     @GetMapping(UriConstants.COMPANIES)
     public Response<List<Company>> listAllCompanies() {
 
@@ -32,5 +37,15 @@ public class CompanyController {
         ResponseInfoEnum responseInfoEnum = company != null ?
                 ResponseInfoEnum.REQUEST_SUCCESSFULLY : ResponseInfoEnum.RESOURCE_NOT_FOUND;
         return ResponseWrapper.wrapResult(responseInfoEnum, company);
+    }
+
+
+    @GetMapping(UriConstants.COMPANIES_ID_EMPLOYEES)
+    public Response<List<Employee>> listEmployeeByCompanyId(@PathVariable Integer id) {
+
+        List<Employee> employees = employeeService.listByCompanyId(id);
+        ResponseInfoEnum responseInfoEnum = employees.size() > 0 ?
+                ResponseInfoEnum.REQUEST_SUCCESSFULLY : ResponseInfoEnum.RESOURCE_NOT_FOUND;
+        return ResponseWrapper.wrapResult(responseInfoEnum, employees);
     }
 }
