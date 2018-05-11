@@ -1,9 +1,7 @@
 package com.example.employee.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Company {
@@ -15,6 +13,13 @@ public class Company {
     private String companyName;
 
     private String employeesNumber;
+
+    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
+    @JoinColumn(name = "companyId")
+    private List<Employee> employees;
+
+    public Company() {
+    }
 
     public Company(String companyName, String employeesNumber, Integer id) {
         this.id = id;
@@ -44,5 +49,13 @@ public class Company {
 
     public void setEmployeesNumber(String employeesNumber) {
         this.employeesNumber = employeesNumber;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }
