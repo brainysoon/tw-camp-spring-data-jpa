@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     //以下所有的*都代表变量
@@ -42,4 +44,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Modifying
     @Query(value = "delete from Employee where name=:name", nativeQuery = true)
     Integer deleteByName(@Param("name") String name);
+
+    @Query("select e from Employee e where companyId=:companyId")
+    List<Employee> findByCompanyId(@Param("companyId") Integer companyId);
 }
