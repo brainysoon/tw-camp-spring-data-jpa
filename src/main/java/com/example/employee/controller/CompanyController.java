@@ -8,6 +8,7 @@ import com.example.employee.service.CompanyService;
 import com.example.employee.util.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -22,5 +23,14 @@ public class CompanyController {
     public Response<List<Company>> listAllCompanies() {
 
         return ResponseWrapper.wrapResult(ResponseInfoEnum.REQUEST_SUCCESSFULLY, companyService.listAll());
+    }
+
+    @GetMapping(UriConstants.COMPANIES_ID)
+    public Response<Company> findBy(@PathVariable Integer id) {
+
+        Company company = companyService.findById(id);
+        ResponseInfoEnum responseInfoEnum = company != null ?
+                ResponseInfoEnum.REQUEST_SUCCESSFULLY : ResponseInfoEnum.RESOURCE_NOT_FOUND;
+        return ResponseWrapper.wrapResult(responseInfoEnum, company);
     }
 }
