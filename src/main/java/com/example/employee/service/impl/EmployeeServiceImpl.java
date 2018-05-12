@@ -13,6 +13,8 @@ import java.util.List;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
+    private static final String MALE = "male";
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
@@ -29,5 +31,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Page<Employee> listByPage(Pageable pageable) {
         return employeeRepository.findAllEmployees(pageable);
+    }
+
+    @Override
+    public List<Employee> listAllMale() {
+        return employeeRepository.listByGender(MALE);
     }
 }

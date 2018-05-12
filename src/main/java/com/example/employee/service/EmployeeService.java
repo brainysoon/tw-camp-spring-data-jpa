@@ -13,4 +13,6 @@ public interface EmployeeService {
     Employee findById(Integer id);
 
     Page<Employee> listByPage(Pageable pageable);
+
+    List<Employee> listAllMale();
 }
