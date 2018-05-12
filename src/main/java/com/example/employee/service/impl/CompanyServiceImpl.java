@@ -33,4 +33,9 @@ public class CompanyServiceImpl implements CompanyService {
     public Page<Company> listByPage(Pageable pageable) {
         return companyRepository.findByPage(pageable);
     }
+
+    @Override
+    public Company save(Company company) {
+        return companyRepository.save(company);
+    }
 }

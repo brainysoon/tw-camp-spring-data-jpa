@@ -13,4 +13,6 @@ public interface CompanyService {
     Company findById(Integer id);
 
     Page<Company> listByPage(Pageable pageable);
+
+    Company save(Company company);
 }
