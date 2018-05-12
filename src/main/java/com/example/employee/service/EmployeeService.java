@@ -15,4 +15,6 @@ public interface EmployeeService {
     Page<Employee> listByPage(Pageable pageable);
 
     List<Employee> listAllMale();
+
+    void deleteById(Integer id);
 }

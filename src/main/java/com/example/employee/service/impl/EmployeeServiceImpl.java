@@ -37,4 +37,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> listAllMale() {
         return employeeRepository.listByGender(MALE);
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        employeeRepository.deleteById(id);
+    }
 }
