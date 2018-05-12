@@ -74,7 +74,7 @@ public class CompanyController {
                                              @RequestParam Integer employeesNumber) {
 
         Integer influenceLine = companyService.update(id, companyName, employeesNumber);
-        return ResponseWrapper.wrapResponse(ResponseInfoEnum.RESOURCE_CREATED, influenceLine);
+        return ResponseWrapper.wrapPutResponse(line -> line > 0, influenceLine);
     }
 
     @DeleteMapping(UriConstants.COMPANIES_ID)

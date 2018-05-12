@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
+
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
@@ -15,6 +17,7 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
     Page<Company> findByPage(Pageable pageable);
 
     @Modifying
+    @Transactional
     @Query(value = "update Company set companyName=?2 , employeesNumber=?3 where id=?1", nativeQuery = true)
     int updateById(Integer id, String companyName, Integer employeesNumber);
 }
