@@ -30,7 +30,7 @@ public class CompanyController {
     @GetMapping(UriConstants.COMPANIES)
     public Response<List<Company>> listAllCompanies() {
 
-        return ResponseWrapper.wrapResult(ResponseInfoEnum.REQUEST_SUCCESSFULLY, companyService.listAll());
+        return ResponseWrapper.wrapResponse(ResponseInfoEnum.REQUEST_SUCCESSFULLY, companyService.listAll());
     }
 
     @GetMapping(UriConstants.COMPANIES_ID)
@@ -39,7 +39,7 @@ public class CompanyController {
         Company company = companyService.findById(id);
         ResponseInfoEnum responseInfoEnum = company != null ?
                 ResponseInfoEnum.REQUEST_SUCCESSFULLY : ResponseInfoEnum.RESOURCE_NOT_FOUND;
-        return ResponseWrapper.wrapResult(responseInfoEnum, company);
+        return ResponseWrapper.wrapResponse(responseInfoEnum, company);
     }
 
 
@@ -49,7 +49,7 @@ public class CompanyController {
         List<Employee> employees = employeeService.listByCompanyId(id);
         ResponseInfoEnum responseInfoEnum = employees.size() > 0 ?
                 ResponseInfoEnum.REQUEST_SUCCESSFULLY : ResponseInfoEnum.RESOURCE_NOT_FOUND;
-        return ResponseWrapper.wrapResult(responseInfoEnum, employees);
+        return ResponseWrapper.wrapResponse(responseInfoEnum, employees);
     }
 
     @GetMapping(UriConstants.COMPANIES_PAGE_PAGENUM_PAGESIZE_PAGESIZENUM)
@@ -59,6 +59,6 @@ public class CompanyController {
         Page<Company> companyPage = companyService.listByPage(pageable);
         ResponseInfoEnum responseInfoEnum = companyPage.getSize() > 0 ?
                 ResponseInfoEnum.REQUEST_SUCCESSFULLY : ResponseInfoEnum.RESOURCE_NOT_FOUND;
-        return ResponseWrapper.wrapResult(responseInfoEnum, companyPage);
+        return ResponseWrapper.wrapResponse(responseInfoEnum, companyPage);
     }
 }
