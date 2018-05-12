@@ -43,4 +43,11 @@ public class EmployeeController {
         Page<Employee> employeePage = employeeService.listByPage(pageable);
         return ResponseWrapper.wrapGetResponse(page -> !page.hasContent(), employeePage);
     }
+
+    @GetMapping(UriConstants.EMPLOYEES_MALE)
+    public Response<List<Employee>> listAllMale() {
+
+        List<Employee> employees = employeeService.listAllMale();
+        return ResponseWrapper.wrapGetResponse(List::isEmpty, employees);
+    }
 }
