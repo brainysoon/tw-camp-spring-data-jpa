@@ -45,6 +45,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee save(Employee employee) {
+
+        Integer lastId = employeeRepository.findLastId();
+        employee.setId(lastId + 1);
+
         return employeeRepository.save(employee);
     }
 }

@@ -39,8 +39,8 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public Company save(Company company) {
 
-        List<Company> companies = companyRepository.findAll();
-        company.setId(companies.size());
+        Integer lastId = companyRepository.findLastId();
+        company.setId(lastId + 1);
 
         return companyRepository.save(company);
     }
