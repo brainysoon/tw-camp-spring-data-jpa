@@ -17,4 +17,6 @@ public interface CompanyService {
     Company save(Company company);
 
     int update(Integer id, String companyName, Integer employeesNumber);
+
+    void deleteById(Integer id);
 }

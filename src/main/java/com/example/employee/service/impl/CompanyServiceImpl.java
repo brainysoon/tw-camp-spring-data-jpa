@@ -43,4 +43,9 @@ public class CompanyServiceImpl implements CompanyService {
     public int update(Integer id, String companyName, Integer employeesNumber) {
         return companyRepository.updateById(id, companyName, employeesNumber);
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        companyRepository.deleteById(id);
+    }
 }
