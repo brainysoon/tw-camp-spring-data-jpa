@@ -1,6 +1,7 @@
 package com.example.employee.constant;
 
 import com.example.employee.domain.Link;
+import com.example.employee.util.LinkUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,13 +23,7 @@ public interface UriConstants {
 
     default List<Link> listLinks() throws Exception {
         return Arrays.stream(UriConstants.class.getFields())
-                .map(field -> {
-                    try {
-                        return new Link(field.getName(), (String) field.get(null));
-                    } catch (Exception e) {
-                        return null;
-                    }
-                })
+                .map(LinkUtils::generateLink)
                 .collect(Collectors.toList());
     }
 }
