@@ -31,7 +31,7 @@ public class CompanyJPATest {
     public void setUp() throws Exception {
         //本地启动mysql，创建employee_db数据库
         Flyway flyway = new Flyway();
-        flyway.setDataSource("jdbc:mysql://stage.icusin.com:3306/employee_db", "root", "root");
+        flyway.setDataSource("jdbc:mysql://localhost:3306/employee_db", "root", "root");
         flyway.clean();
         flyway.migrate();
     }
