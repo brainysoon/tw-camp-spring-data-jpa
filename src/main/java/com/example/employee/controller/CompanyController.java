@@ -4,7 +4,6 @@ import com.example.employee.constant.UriConstants;
 import com.example.employee.domain.Response;
 import com.example.employee.entity.Company;
 import com.example.employee.entity.Employee;
-import com.example.employee.enums.ResponseInfoEnum;
 import com.example.employee.service.CompanyService;
 import com.example.employee.service.EmployeeService;
 import com.example.employee.util.ResponseWrapper;
@@ -49,7 +48,7 @@ public class CompanyController {
         return ResponseWrapper.wrapGetResponse(List::isEmpty, employees);
     }
 
-    @GetMapping(UriConstants.COMPANIES_PAGE_PAGENUM_PAGESIZE_PAGESIZENUM)
+    @GetMapping(UriConstants.COMPANIES_PAGE_NUM_PAGESIZE_NUM)
     public Response<Page<Company>> listByPage(@PathVariable Integer pageNum, @PathVariable Integer pagesizeNum) {
         Pageable pageable = PageRequest.of(pageNum, pagesizeNum);
 
