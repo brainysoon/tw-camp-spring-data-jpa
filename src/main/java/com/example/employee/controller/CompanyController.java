@@ -2,17 +2,21 @@ package com.example.employee.controller;
 
 import com.example.employee.constant.UriConstants;
 import com.example.employee.domain.Response;
+import com.example.employee.domain.ValidationError;
 import com.example.employee.entity.Company;
 import com.example.employee.entity.Employee;
+import com.example.employee.enums.ResponseInfoEnum;
 import com.example.employee.service.CompanyService;
 import com.example.employee.service.EmployeeService;
 import com.example.employee.util.ResponseWrapper;
+import com.example.employee.util.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -54,5 +58,17 @@ public class CompanyController {
 
         Page<Company> companyPage = companyService.listByPage(pageable);
         return ResponseWrapper.wrapGetResponse(page -> !page.hasContent(), companyPage);
+    }
+
+    @PostMapping(UriConstants.COMPANIES)
+    public Response<Object> saveCompanies(Company company) {
+
+        List<ValidationError> validationErrors = ValidationUtils.validateCompany(company);
+        if (validationErrors.size() > 0) {
+            return ResponseWrapper.wrapResponse(ResponseInfoEnum.REQUEST_NOT_ACCEPTABLE, validationErrors);
+        }
+
+        Company addedCompany = companyService.save(company);
+        return ResponseWrapper.wrapResponse(ResponseInfoEnum.RESOURCE_CREATED, addedCompany);
     }
 }
