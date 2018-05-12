@@ -12,7 +12,7 @@ public class Company {
 
     private String companyName;
 
-    private String employeesNumber;
+    private Integer employeesNumber;
 
     @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
     @JoinColumn(name = "companyId")
@@ -21,7 +21,7 @@ public class Company {
     public Company() {
     }
 
-    public Company(String companyName, String employeesNumber, Integer id) {
+    public Company(String companyName, Integer employeesNumber, Integer id) {
         this.id = id;
         this.companyName = companyName;
         this.employeesNumber = employeesNumber;
@@ -43,11 +43,11 @@ public class Company {
         this.companyName = companyName;
     }
 
-    public String getEmployeesNumber() {
+    public Integer getEmployeesNumber() {
         return employeesNumber;
     }
 
-    public void setEmployeesNumber(String employeesNumber) {
+    public void setEmployeesNumber(Integer employeesNumber) {
         this.employeesNumber = employeesNumber;
     }
 
