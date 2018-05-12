@@ -5,6 +5,14 @@ public class ValidationError {
     private String field;
     private String error;
 
+    public ValidationError() {
+    }
+
+    public ValidationError(String field, String error) {
+        this.field = field;
+        this.error = error;
+    }
+
     public String getField() {
         return field;
     }
