@@ -9,4 +9,5 @@ public interface UriConstants {
 
     String EMPLOYEES = "employees";
     String EMPLOYEES_ID = "employees/{id}";
+    String EMPLOYEES_PAGE_NUM_PAGESIZE_NUM = "employees/page/{pageNum}/pagesize/{pagesizeNum}";
 }

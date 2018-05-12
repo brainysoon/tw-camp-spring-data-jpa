@@ -6,6 +6,9 @@ import com.example.employee.entity.Employee;
 import com.example.employee.service.EmployeeService;
 import com.example.employee.util.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,5 +34,13 @@ public class EmployeeController {
 
         Employee employee = employeeService.findById(id);
         return ResponseWrapper.wrapGetResponse(Objects::isNull, employee);
+    }
+
+    @GetMapping(UriConstants.EMPLOYEES_PAGE_NUM_PAGESIZE_NUM)
+    public Response<Page<Employee>> listByPage(@PathVariable Integer pageNum, @PathVariable Integer pagesizeNum) {
+        Pageable pageable = PageRequest.of(pageNum, pagesizeNum);
+
+        Page<Employee> employeePage = employeeService.listByPage(pageable);
+        return ResponseWrapper.wrapGetResponse(page -> !page.hasContent(), employeePage);
     }
 }
