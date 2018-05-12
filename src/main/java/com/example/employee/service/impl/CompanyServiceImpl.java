@@ -38,4 +38,9 @@ public class CompanyServiceImpl implements CompanyService {
     public Company save(Company company) {
         return companyRepository.save(company);
     }
+
+    @Override
+    public int update(Integer id, String companyName, Integer employeesNumber) {
+        return companyRepository.updateById(id, companyName, employeesNumber);
+    }
 }

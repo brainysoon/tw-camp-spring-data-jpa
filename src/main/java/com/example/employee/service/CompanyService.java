@@ -15,4 +15,6 @@ public interface CompanyService {
     Page<Company> listByPage(Pageable pageable);
 
     Company save(Company company);
+
+    int update(Integer id, String companyName, Integer employeesNumber);
 }
