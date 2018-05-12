@@ -1,6 +1,7 @@
 package com.example.employee.service.impl;
 
 import com.example.employee.entity.Company;
+import com.example.employee.entity.Employee;
 import com.example.employee.repository.CompanyRepository;
 import com.example.employee.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,5 +53,12 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public void deleteById(Integer id) {
         companyRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Employee> listEmployeesByCompanyId(Integer id) {
+        Optional<Company> companyOptional = companyRepository.findById(id);
+        Company company = companyOptional.orElse(null);
+        return company == null ? Collections.emptyList() : company.getEmployees();
     }
 }

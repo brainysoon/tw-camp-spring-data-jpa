@@ -25,9 +25,6 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
-    @Autowired
-    private EmployeeService employeeService;
-
     @GetMapping(UriConstants.COMPANIES)
     public Response<List<Company>> listAllCompanies() {
 
@@ -45,7 +42,7 @@ public class CompanyController {
     @GetMapping(UriConstants.COMPANIES_ID_EMPLOYEES)
     public Response<List<Employee>> listEmployeeByCompanyId(@PathVariable Integer id) {
 
-        List<Employee> employees = employeeService.listByCompanyId(id);
+        List<Employee> employees = companyService.listEmployeesByCompanyId(id);
         return ResponseWrapper.wrapGetResponse(List::isEmpty, employees);
     }
 

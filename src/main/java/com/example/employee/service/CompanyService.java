@@ -1,6 +1,7 @@
 package com.example.employee.service;
 
 import com.example.employee.entity.Company;
+import com.example.employee.entity.Employee;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -19,4 +20,6 @@ public interface CompanyService {
     int update(Integer id, String companyName, Integer employeesNumber);
 
     void deleteById(Integer id);
+
+    List<Employee> listEmployeesByCompanyId(Integer id);
 }

@@ -9,8 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     //以下所有的*都代表变量
@@ -32,7 +30,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     Page<Employee> findAllEmployees(Pageable pageable);
 
     //5.查找**的所在的公司的公司名称
-    @Query("select c.companyName from Company c where c.id = (select e.companyId from Employee e where e.name=:name)")
+    @Query(value = "select c.companyName from Company c where c.id = (select e.companyId from Employee e where e.name=:name)", nativeQuery = true)
     String findCompanyNameOf(@Param("name") String name);
 
     //6.将*的名字改成*,输出这次修改影响的行数
@@ -44,7 +42,4 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Modifying
     @Query(value = "delete from Employee where name=:name", nativeQuery = true)
     Integer deleteByName(@Param("name") String name);
-
-    @Query("select e from Employee e where companyId=:companyId")
-    List<Employee> findByCompanyId(@Param("companyId") Integer companyId);
 }

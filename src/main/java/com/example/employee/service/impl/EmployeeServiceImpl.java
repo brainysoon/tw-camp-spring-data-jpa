@@ -14,8 +14,4 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @Override
-    public List<Employee> listByCompanyId(Integer companyId) {
-        return employeeRepository.findByCompanyId(companyId);
-    }
 }
