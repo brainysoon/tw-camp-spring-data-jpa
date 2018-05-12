@@ -47,4 +47,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     @Query("select e from Employee e where e.gender=:gender")
     List<Employee> listByGender(@Param("gender") String gender);
+
+    @Query(value = "select id from Employee e order by e.id desc limit 1", nativeQuery = true)
+    Integer findLastId();
 }

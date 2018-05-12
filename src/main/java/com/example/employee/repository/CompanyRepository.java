@@ -20,4 +20,7 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
     @Transactional
     @Query(value = "update Company set companyName=?2 , employeesNumber=?3 where id=?1", nativeQuery = true)
     int updateById(Integer id, String companyName, Integer employeesNumber);
+
+    @Query(value = "select id from Company  c order by c.id desc limit 1", nativeQuery = true)
+    Integer findLastId();
 }
