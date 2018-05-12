@@ -1,9 +1,8 @@
 package com.example.employee.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 
 @Entity
 public class Employee {
@@ -17,19 +16,21 @@ public class Employee {
 
     private String gender;
 
-    private Integer companyId;
-
     private Integer salary;
+
+    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
+    @JoinColumn(name = "companyId")
+    @JsonIgnore
+    private Company company;
 
     public Employee() {
     }
 
-    public Employee(String name, Integer age, String gender, Integer salary, Integer id, Integer companyId) {
+    public Employee(String name, Integer age, String gender, Integer salary, Integer id) {
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.id = id;
-        this.companyId = companyId;
     }
 
     public Integer getId() {
@@ -64,19 +65,19 @@ public class Employee {
         this.gender = gender;
     }
 
-    public Integer getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
-
     public Integer getSalary() {
         return salary;
     }
 
     public void setSalary(Integer salary) {
         this.salary = salary;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

@@ -13,8 +13,7 @@ public class Company {
 
     private Integer employeesNumber;
 
-    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
-    @JoinColumn(name = "companyId")
+    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.REFRESH}, mappedBy = "company", orphanRemoval = true)
     private List<Employee> employees;
 
     public Company() {
