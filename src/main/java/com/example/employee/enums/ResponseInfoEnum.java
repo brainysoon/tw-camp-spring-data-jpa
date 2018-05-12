@@ -3,7 +3,8 @@ package com.example.employee.enums;
 public enum ResponseInfoEnum {
     REQUEST_SUCCESSFULLY(200, "ok", "Request successfully"),
     SERVER_INTERNAL_ERROR(500, "error", "Server internal error"),
-    RESOURCE_NOT_FOUND(404, "not found", "Requested resources not found");
+    RESOURCE_NOT_FOUND(404, "not found", "Requested resources not found"),
+    REQUEST_NOT_ACCEPTABLE(406, "Not Acceptable", "Request data is not match the requirement");
 
     private Integer code;
     private String message;
