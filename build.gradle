@@ -37,8 +37,10 @@ flyway {
     url = 'jdbc:mysql://stage.icusin.com:3306/employee_db'
     user = 'root'
     password = 'root'
+    schemas = 'employee_db'
     table = 'schema_history'
     locations = ['filesystem:src/main/resources/db/migration']
+    baselineOnMigrate = true
 }
 
 dependencies {
