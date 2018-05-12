@@ -111,4 +111,13 @@ public class EmployeeJPATest {
 
         assertThat(actualLine).isEqualTo(expectedLine);
     }
+
+    @Test
+    public void should_return_all_the_employee_match_the_given_gender() throws Exception {
+        String gender = "male";
+
+        List<Employee> employees = employeeRepository.listByGender(gender);
+
+        assertThat(employees.size()).isEqualTo(3);
+    }
 }
