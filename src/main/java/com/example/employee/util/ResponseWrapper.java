@@ -21,4 +21,8 @@ public class ResponseWrapper<T> {
         response.setData(data);
         return response;
     }
+
+    public static <T> Response<T> wrapResponse(ResponseInfoEnum responseInfoEnum) {
+        return new Response<>(responseInfoEnum);
+    }
 }
