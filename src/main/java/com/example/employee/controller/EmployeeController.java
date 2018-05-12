@@ -3,12 +3,14 @@ package com.example.employee.controller;
 import com.example.employee.constant.UriConstants;
 import com.example.employee.domain.Response;
 import com.example.employee.entity.Employee;
+import com.example.employee.enums.ResponseInfoEnum;
 import com.example.employee.service.EmployeeService;
 import com.example.employee.util.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,5 +51,12 @@ public class EmployeeController {
 
         List<Employee> employees = employeeService.listAllMale();
         return ResponseWrapper.wrapGetResponse(List::isEmpty, employees);
+    }
+
+    @DeleteMapping(UriConstants.EMPLOYEES_ID)
+    public Response<Object> deleteById(@PathVariable Integer id) {
+
+        employeeService.deleteById(id);
+        return ResponseWrapper.wrapResponse(ResponseInfoEnum.NO_CONTENT);
     }
 }
