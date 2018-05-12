@@ -6,6 +6,7 @@ public enum ResponseInfoEnum {
     RESOURCE_NOT_FOUND(404, "not found", "Requested resources not found"),
     REQUEST_NOT_ACCEPTABLE(406, "Not Acceptable", "Request data is not match the requirement"),
     RESOURCE_CREATED(201, "Created", "Requested resource created"),
+    RESOURCE_UPDATED(203, "Updated", "Resource updated"),
     NO_CONTENT(204, "NO Content", "Delete content successfully");
 
     private Integer code;
