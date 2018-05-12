@@ -76,4 +76,11 @@ public class CompanyController {
         Integer influenceLine = companyService.update(id, companyName, employeesNumber);
         return ResponseWrapper.wrapResponse(ResponseInfoEnum.RESOURCE_CREATED, influenceLine);
     }
+
+    @DeleteMapping(UriConstants.COMPANIES_ID)
+    public Response<Object> deleteById(@PathVariable Integer id) {
+
+        companyService.deleteById(id);
+        return ResponseWrapper.wrapResponse(ResponseInfoEnum.NO_CONTENT);
+    }
 }
