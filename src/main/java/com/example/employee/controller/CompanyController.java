@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class CompanyController {
@@ -30,16 +31,14 @@ public class CompanyController {
     @GetMapping(UriConstants.COMPANIES)
     public Response<List<Company>> listAllCompanies() {
 
-        return ResponseWrapper.wrapResponse(ResponseInfoEnum.REQUEST_SUCCESSFULLY, companyService.listAll());
+        return ResponseWrapper.wrapGetResponse(List::isEmpty, companyService.listAll());
     }
 
     @GetMapping(UriConstants.COMPANIES_ID)
     public Response<Company> findBy(@PathVariable Integer id) {
 
         Company company = companyService.findById(id);
-        ResponseInfoEnum responseInfoEnum = company != null ?
-                ResponseInfoEnum.REQUEST_SUCCESSFULLY : ResponseInfoEnum.RESOURCE_NOT_FOUND;
-        return ResponseWrapper.wrapResponse(responseInfoEnum, company);
+        return ResponseWrapper.wrapGetResponse(Objects::isNull, company);
     }
 
 
@@ -47,9 +46,7 @@ public class CompanyController {
     public Response<List<Employee>> listEmployeeByCompanyId(@PathVariable Integer id) {
 
         List<Employee> employees = employeeService.listByCompanyId(id);
-        ResponseInfoEnum responseInfoEnum = employees.size() > 0 ?
-                ResponseInfoEnum.REQUEST_SUCCESSFULLY : ResponseInfoEnum.RESOURCE_NOT_FOUND;
-        return ResponseWrapper.wrapResponse(responseInfoEnum, employees);
+        return ResponseWrapper.wrapGetResponse(List::isEmpty, employees);
     }
 
     @GetMapping(UriConstants.COMPANIES_PAGE_PAGENUM_PAGESIZE_PAGESIZENUM)
@@ -57,8 +54,6 @@ public class CompanyController {
         Pageable pageable = PageRequest.of(pageNum, pagesizeNum);
 
         Page<Company> companyPage = companyService.listByPage(pageable);
-        ResponseInfoEnum responseInfoEnum = companyPage.getSize() > 0 ?
-                ResponseInfoEnum.REQUEST_SUCCESSFULLY : ResponseInfoEnum.RESOURCE_NOT_FOUND;
-        return ResponseWrapper.wrapResponse(responseInfoEnum, companyPage);
+        return ResponseWrapper.wrapGetResponse(page -> !page.hasContent(), companyPage);
     }
 }
