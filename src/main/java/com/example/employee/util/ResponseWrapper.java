@@ -25,4 +25,13 @@ public class ResponseWrapper<T> {
     public static <T> Response<T> wrapResponse(ResponseInfoEnum responseInfoEnum) {
         return new Response<>(responseInfoEnum);
     }
+
+    public static <T> Response<T> wrapPutResponse(Predicate<T> updateSuccessfullyPredicate, T influenceLine) {
+
+        ResponseInfoEnum responseInfoEnum = updateSuccessfullyPredicate.test(influenceLine) ?
+                ResponseInfoEnum.RESOURCE_UPDATED : ResponseInfoEnum.RESOURCE_NOT_FOUND;
+        Response<T> response = new Response<>(responseInfoEnum);
+        response.setData(influenceLine);
+        return response;
+    }
 }
