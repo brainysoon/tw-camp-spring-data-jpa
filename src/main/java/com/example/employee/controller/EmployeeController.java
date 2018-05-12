@@ -2,18 +2,17 @@ package com.example.employee.controller;
 
 import com.example.employee.constant.UriConstants;
 import com.example.employee.domain.Response;
+import com.example.employee.domain.ValidationError;
 import com.example.employee.entity.Employee;
 import com.example.employee.enums.ResponseInfoEnum;
 import com.example.employee.service.EmployeeService;
 import com.example.employee.util.ResponseWrapper;
+import com.example.employee.util.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -58,5 +57,17 @@ public class EmployeeController {
 
         employeeService.deleteById(id);
         return ResponseWrapper.wrapResponse(ResponseInfoEnum.NO_CONTENT);
+    }
+
+    @PostMapping(UriConstants.EMPLOYEES)
+    public Response<Object> save(Employee employee) {
+
+        List<ValidationError> validationErrors = ValidationUtils.validateEmployee(employee);
+        if (validationErrors.size() > 0) {
+            return ResponseWrapper.wrapResponse(ResponseInfoEnum.REQUEST_NOT_ACCEPTABLE, validationErrors);
+        }
+
+        Employee addedEmployee = employeeService.save(employee);
+        return ResponseWrapper.wrapResponse(ResponseInfoEnum.RESOURCE_CREATED, addedEmployee);
     }
 }
