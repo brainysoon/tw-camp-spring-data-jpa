@@ -19,4 +19,6 @@ public interface EmployeeService {
     void deleteById(Integer id);
 
     Employee save(Employee employee);
+
+    int update(Employee employee);
 }
