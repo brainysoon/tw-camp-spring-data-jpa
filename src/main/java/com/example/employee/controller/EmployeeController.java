@@ -75,4 +75,17 @@ public class EmployeeController {
         Employee addedEmployee = employeeService.save(employee);
         return ResponseWrapper.wrapResponse(ResponseInfoEnum.RESOURCE_CREATED, addedEmployee);
     }
+
+    @PutMapping(UriConstants.EMPLOYEES_ID)
+    public Response<Integer> update(@PathVariable Integer id,
+                                    @RequestParam(required = false) Integer companyId, Employee employee) {
+
+        Company company = new Company();
+        company.setId(companyId);
+        employee.setCompany(company);
+        employee.setId(id);
+
+        Integer influenceLine = employeeService.update(employee);
+        return ResponseWrapper.wrapPutResponse(line -> line > 0, influenceLine);
+    }
 }
