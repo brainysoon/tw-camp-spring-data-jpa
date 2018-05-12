@@ -17,4 +17,6 @@ public interface EmployeeService {
     List<Employee> listAllMale();
 
     void deleteById(Integer id);
+
+    Employee save(Employee employee);
 }
