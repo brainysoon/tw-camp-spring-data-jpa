@@ -7,9 +7,11 @@ import com.example.employee.service.EmployeeService;
 import com.example.employee.util.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class EmployeeController {
@@ -22,5 +24,12 @@ public class EmployeeController {
 
         List<Employee> employees = employeeService.listAll();
         return ResponseWrapper.wrapGetResponse(List::isEmpty, employees);
+    }
+
+    @GetMapping(UriConstants.EMPLOYEES_ID)
+    public Response<Employee> findById(@PathVariable Integer id) {
+
+        Employee employee = employeeService.findById(id);
+        return ResponseWrapper.wrapGetResponse(Objects::isNull, employee);
     }
 }
