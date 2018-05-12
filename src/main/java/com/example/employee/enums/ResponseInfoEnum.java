@@ -5,7 +5,8 @@ public enum ResponseInfoEnum {
     SERVER_INTERNAL_ERROR(500, "error", "Server internal error"),
     RESOURCE_NOT_FOUND(404, "not found", "Requested resources not found"),
     REQUEST_NOT_ACCEPTABLE(406, "Not Acceptable", "Request data is not match the requirement"),
-    RESOURCE_CREATED(201, "Created", "Requested resource created");
+    RESOURCE_CREATED(201, "Created", "Requested resource created"),
+    NO_CONTENT(204, "NO Content", "Delete content successfully");
 
     private Integer code;
     private String message;
