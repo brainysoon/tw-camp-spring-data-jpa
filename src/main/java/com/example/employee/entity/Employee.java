@@ -18,7 +18,7 @@ public class Employee {
 
     private Integer salary;
 
-    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name = "companyId")
     @JsonIgnore
     private Company company;

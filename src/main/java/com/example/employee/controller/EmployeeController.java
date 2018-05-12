@@ -3,6 +3,7 @@ package com.example.employee.controller;
 import com.example.employee.constant.UriConstants;
 import com.example.employee.domain.Response;
 import com.example.employee.domain.ValidationError;
+import com.example.employee.entity.Company;
 import com.example.employee.entity.Employee;
 import com.example.employee.enums.ResponseInfoEnum;
 import com.example.employee.service.EmployeeService;
@@ -60,12 +61,16 @@ public class EmployeeController {
     }
 
     @PostMapping(UriConstants.EMPLOYEES)
-    public Response<Object> save(Employee employee) {
+    public Response<Object> save(@RequestParam Integer companyId, Employee employee) {
 
         List<ValidationError> validationErrors = ValidationUtils.validateEmployee(employee);
         if (validationErrors.size() > 0) {
             return ResponseWrapper.wrapResponse(ResponseInfoEnum.REQUEST_NOT_ACCEPTABLE, validationErrors);
         }
+
+        Company company = new Company();
+        company.setId(companyId);
+        employee.setCompany(company);
 
         Employee addedEmployee = employeeService.save(employee);
         return ResponseWrapper.wrapResponse(ResponseInfoEnum.RESOURCE_CREATED, addedEmployee);
